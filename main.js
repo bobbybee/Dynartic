@@ -20,6 +20,14 @@ var buffer = new Buffer(width * height * 4);
 // bare calculations are offset to DynImage
 var dynimage = new DynImage(width, height, buffer);
 
+// fill the image with a random, opaque color to start with
+dynimage.fillColor(
+		Math.floor(Math.random() * 255),
+		Math.floor(Math.random() * 255),
+		Math.floor(Math.random() * 255),
+		0	
+		);
+
 var png = new Png(buffer, width, height, 'rgba');
 png.encode(function(image) {
 			fs.writeFile("output.png", image);
