@@ -125,6 +125,19 @@ DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity) {
 	}		
 }
 
+DynImage.prototype.punchImage = function(sx, sy, sw, sh, force, spread) {
+	for(var i = -(sw / 2); i < (sw/2); ++i) {
+		for(var j = (-(sh/2)); j < (sh/2); ++j) {
+			var x = sx + i,
+    			    y = sy + j;
+	
+			var intensity = Math.sqrt( (i*i) + (j*j) );
+			intensity = Math.pow(2, -intensity / spread);	
+			this.punchPoint(x, y, intensity * force);
+		}
+	}	
+}
+
 // opposite of point pulling; works on a single point only
 
 DynImage.prototype.punchPoint = function(x, y, force) {

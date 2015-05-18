@@ -14,27 +14,31 @@ var DynImage = require("./DynImage");
 var width = process.argv[2]*1;
 var height = process.argv[3]*1;
 
-// buffer size is: width * height * 4 (RGBA is 4 bytes)
-var buffer = new Buffer(width * height * 4);
+function pretty(name, ringConstant) {
+	// buffer size is: width * height * 4 (RGBA is 4 bytes)
+	var buffer = new Buffer(width * height * 4);
 
-// bare calculations are offset to DynImage
-var dynimage = new DynImage(width, height, buffer);
+	// bare calculations are offset to DynImage
+	var dynimage = new DynImage(width, height, buffer);
 
-// fill the image with a random, opaque color to start with
-dynimage.fillColor(
-		Math.floor(Math.random() * 255),
-		Math.floor(Math.random() * 255),
-		Math.floor(Math.random() * 255),
-		0	
-		);
+	// fill the image with a random, opaque color to start with
+	dynimage.fillColor(
+			Math.floor(Math.random() * 255),
+			Math.floor(Math.random() * 255),
+			Math.floor(Math.random() * 255),
+			0	
+			);
 
-// make a beautiful point ring
-//dynimage.pointRing(width / 2, height / 2, width, 2);
+	// make a beautiful point ring
 
-// punch a point
-dynimage.punchPoint(50, 50, 100);
+	dynimage.punchImage(width / 2, height / 2, width, height, (Math.floor(Math.random() * 96)), width / 3);
 
-var png = new Png(buffer, width, height, 'rgba');
-png.encode(function(image) {
-			fs.writeFile("output.png", image);
-		});
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant)
+
+	var png = new Png(buffer, width, height, 'rgba');
+	png.encode(function(image) {
+				fs.writeFile(name+".png", image);
+			});
+}
+
+pretty("output", Math.E);
