@@ -28,7 +28,11 @@ dynimage.fillColor(
 		0	
 		);
 
-dynimage.pullPoint(width / 2, height / 2, width, 2);
+// make a beautiful point ring
+//dynimage.pointRing(width / 2, height / 2, width, 2);
+
+// punch a point
+dynimage.punchPoint(50, 50, 100);
 
 var png = new Png(buffer, width, height, 'rgba');
 png.encode(function(image) {

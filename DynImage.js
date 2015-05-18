@@ -91,7 +91,7 @@ DynImage.prototype.fillColor = function(r, g, b, a) {
 // starting with a point, that point is raised a certain, specified amount (this is of course an analogy)
 // this causes the alpha value at that point to be raised to this value,
 // and ripples the effect the nearby pixels as well
-DynImage.prototype.pullPoint = function(sx, sy, height, layerIntensity) {
+DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity) {
 	var rippleAmount = (255 / this.lesserDimension) * height;
 
 	var usedPoints = {};
@@ -123,6 +123,21 @@ DynImage.prototype.pullPoint = function(sx, sy, height, layerIntensity) {
 				     );
 		}
 	}		
+}
+
+// opposite of point pulling; works on a single point only
+
+DynImage.prototype.punchPoint = function(x, y, force) {
+	var color = this.getColor(x, y);
+	color[0] -= force;
+	color[1] -= force;
+	color[2] -= force;
+
+	color[0] = color[0] > 0 ? color[0] < 256 ? color[0] : 255 : 0;
+	color[1] = color[1] > 0 ? color[0] < 256 ? color[1] : 255 : 0;
+	color[2] = color[2] > 0 ? color[0] < 256 ? color[2] : 255 : 0;
+	
+	this.setColor(x, y, color[0], color[1], color[2], color[3]);
 }
 
 module.exports = DynImage;
