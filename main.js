@@ -14,7 +14,7 @@ var DynImage = require("./DynImage");
 var width = process.argv[2]*1;
 var height = process.argv[3]*1;
 
-function pretty(name, ringConstant) {
+function pretty(name, ired, igreen, iblue, ringConstant, stainConstant) {
 	// buffer size is: width * height * 4 (RGBA is 4 bytes)
 	var buffer = new Buffer(width * height * 4);
 
@@ -23,15 +23,15 @@ function pretty(name, ringConstant) {
 
 	// fill the image with a random, opaque color to start with
 	dynimage.fillColor(
-			Math.floor(Math.random() * 255),
-			Math.floor(Math.random() * 255),
-			Math.floor(Math.random() * 255),
+			ired,
+			igreen,
+			iblue,
 			0	
 			);
 
 	// make a beautiful point ring
 
-	dynimage.punchImage(width / 2, height / 2, width, height, (Math.floor(Math.random() * 96)), width / 3);
+	dynimage.punchImage(width / 2, height / 2, width, height, Math.floor(stainConstant), width / 3);
 
 	dynimage.pointRing(width / 2, height / 2, width, ringConstant)
 
@@ -41,4 +41,4 @@ function pretty(name, ringConstant) {
 			});
 }
 
-pretty("output", Math.E);
+pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 3, Math.random() * 150);
