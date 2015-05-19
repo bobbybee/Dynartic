@@ -33,7 +33,9 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 
 	dynimage.punchImage(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3);
 
-	dynimage.pointRing(width / 2, height / 2, width, ringConstant)
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant);
+
+	dynimage.recontrast(127, 70);
 
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {

@@ -154,4 +154,26 @@ DynImage.prototype.punchPoint = function(x, y, force) {
 	this.setColor(x, y, color[0], color[1], color[2], color[3]);
 }
 
+// contrast changer
+// any pixel below a threshold becomes darker,
+// and any pixel above the threshold becomes lighter
+
+DynImage.prototype.recontrast = function(threshold, amount) {
+	for(var i = 0; i < this.width; ++i) {
+		for(var j = 0; j < this.height; ++j) {
+			var pix = this.getColor(i, j);
+			
+			// TODO: use HSL for proper value testing
+
+			var avg = (pix[0] + pix[1] + pix[2]) / 3;
+			if(avg > threshold) {
+				this.setColor(i, j, pix[0] + amount, pix[1] + amount, pix[2] + amount);
+			} else {
+				this.setColor(i, j, pix[0] - amount, pix[1] - amount, pix[2] - amount);
+			}
+		}
+	}
+}
+
+
 module.exports = DynImage;
