@@ -41,4 +41,4 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 			});
 }
 
-pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, Math.random());
+pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, 0.5 + (0.5*Math.random()));

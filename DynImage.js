@@ -133,7 +133,7 @@ DynImage.prototype.punchImage = function(sx, sy, sw, sh, force, spread) {
 	
 			var intensity = Math.sqrt( (i*i) + (j*j) );
 			intensity = Math.pow(2, -intensity / spread);	
-			if( Math.sqrt( ((sx - x) * (sx - x)) + ((sy - y) * (sy - y))) < sw)
+			if( Math.sqrt( ((sx - x) * (sx - x)) + ((sy - y) * (sy - y))) < (sw/2))
 			this.punchPoint(x, y, intensity * force);
 		}
 	}	
