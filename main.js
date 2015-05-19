@@ -14,7 +14,7 @@ var DynImage = require("./DynImage");
 var width = process.argv[2]*1;
 var height = process.argv[3]*1;
 
-function pretty(name, ired, igreen, iblue, ringConstant, stainConstant) {
+function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSize) {
 	// buffer size is: width * height * 4 (RGBA is 4 bytes)
 	var buffer = new Buffer(width * height * 4);
 
@@ -31,7 +31,7 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant) {
 
 	// make a beautiful point ring
 
-	dynimage.punchImage(width / 2, height / 2, width, height, Math.floor(stainConstant), width / 3);
+	dynimage.punchImage(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3);
 
 	dynimage.pointRing(width / 2, height / 2, width, ringConstant)
 
@@ -41,4 +41,4 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant) {
 			});
 }
 
-pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 3, Math.random() * 150);
+pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, Math.random());
