@@ -139,6 +139,20 @@ DynImage.prototype.punchImage = function(sx, sy, sw, sh, force, spread) {
 	}	
 }
 
+DynImage.prototype.punchWave = function(sx, sy, sw, sh, force, spread, period) {
+	for(var i = -(sw / 2); i < (sw/2); ++i) {
+		for(var j = (-(sh/2)); j < (sh/2); ++j) {
+			var x = sx + i,
+			    y = sy + j;
+	
+			var intensity = Math.sqrt( (i*i) + (j*j) );
+			intensity = Math.pow(2, -intensity / spread);	
+			
+			this.punchPoint(x, y, intensity * force * Math.sin(intensity / period));
+		}
+	}	
+}
+
 // opposite of point pulling; works on a single point only
 
 DynImage.prototype.punchPoint = function(x, y, force) {
@@ -173,6 +187,32 @@ DynImage.prototype.recontrast = function(threshold, amount) {
 			}
 		}
 	}
+}
+
+DynImage.prototype.borderPoint = function(x, y, bred, bgreen, bblue, percent) {
+	var color = this.getColor(x, y);
+
+	// weighted average
+
+	this.setColor( ((bred * percent) + (color[0] * (200 - percent))) / 2,
+			((bgreen * percent) + (color[1] * (200 - percent))) / 2,
+			((bblue * percent) + (color[2] * (200 - percent))) / 2);
+}
+
+DynImage.prototype.border = function(width, height, bred, bgreen, bblue, mul) {
+	var borderIterations = 10;
+
+	for(var i = 0; i < borderIterations; ++i) {
+		for(var x = i; x < (width - i); ++x) {
+			// top
+			
+			var y = i;
+			this.borderPoint(x, y, bred, bgreen, bblue, 100 - (i * mul));			
+
+			y = height - i - 1;
+			this.borderPoint(x, y, bred, bgreen, bblue, 100 - (i * mul));			
+		}
+	}	
 }
 
 
