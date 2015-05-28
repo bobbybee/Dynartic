@@ -125,6 +125,22 @@ DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity, intensit
 	}		
 }
 
+DynImage.prototype.character2 = function(width, height) {
+	for(var x = 0; x < width; ++x) {
+		for(var y = 0; y < height; ++y) {
+			var color = this.getColor(x, y);
+			var mod = 150;
+			var mult = Math.ceil(Math.random() * 120);
+
+			this.setColor(x, y, 
+					Math.floor((color[0] * 0.5) + 128*Math.log(((x / width) * mod) + ((y / height) * mod))) & 255,
+					Math.floor((color[1] * 0.5) + 128*Math.log(((x / width) * mod) + ((y / height) * mod))) & 255,
+					Math.floor((color[2] * 0.5) + 128*Math.log(((x / width) * mod) + ((y / height) * mod))) & 255
+				);
+		}
+	}
+}
+
 DynImage.prototype.punchImage = function(sx, sy, sw, sh, force, spread) {
 	for(var i = -(sw / 2); i < (sw/2); ++i) {
 		for(var j = (-(sh/2)); j < (sh/2); ++j) {
