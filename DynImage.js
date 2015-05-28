@@ -91,7 +91,7 @@ DynImage.prototype.fillColor = function(r, g, b, a) {
 // starting with a point, that point is raised a certain, specified amount (this is of course an analogy)
 // this causes the alpha value at that point to be raised to this value,
 // and ripples the effect the nearby pixels as well
-DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity) {
+DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity, intensityMultiplier) {
 	var rippleAmount = (255 / this.lesserDimension) * height;
 
 	var usedPoints = {};
@@ -108,7 +108,7 @@ DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity) {
 			usedPoints[x+";"+y] = 1;
 	
 			var distance = Math.sqrt( ( (sx - x) * (sx - x) ) + ( (sy - y) * (sy - y) ) );
-			var intensity = (height - distance) / height; // linear function.
+			var intensity = Math.log(height - distance) * intensityMultiplier; // linear function.
 			// this outputs a value 0-1, where 1 is the full effect of pulling and 0 is no effect
 			// in the future, we may want a smoother curve
 			// TODO: find alternative that works better
@@ -194,13 +194,13 @@ DynImage.prototype.borderPoint = function(x, y, bred, bgreen, bblue, percent) {
 
 	// weighted average
 
-	this.setColor( ((bred * percent) + (color[0] * (200 - percent))) / 2,
-			((bgreen * percent) + (color[1] * (200 - percent))) / 2,
-			((bblue * percent) + (color[2] * (200 - percent))) / 2);
+	this.setColor( ((bred * percent) + (color[0] * (100 - percent))) / 200,
+			((bgreen * percent) + (color[1] * (100 - percent))) / 200,
+			((bblue * percent) + (color[2] * (100 - percent))) / 200);
 }
 
 DynImage.prototype.border = function(width, height, bred, bgreen, bblue, mul) {
-	var borderIterations = 10;
+	var borderIterations = mul;
 
 	for(var i = 0; i < borderIterations; ++i) {
 		for(var x = i; x < (width - i); ++x) {

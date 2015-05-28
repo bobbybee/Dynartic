@@ -14,7 +14,7 @@ var DynImage = require("./DynImage");
 var width = process.argv[2]*1;
 var height = process.argv[3]*1;
 
-function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSize, waveConstant, contrastThreshold, bred, bgreen, bblue) {
+function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSize, waveConstant, contrastThreshold, bred, bgreen, bblue, intensityConstant, borderConstant) {
 	// buffer size is: width * height * 4 (RGBA is 4 bytes)
 	var buffer = new Buffer(width * height * 4);
 
@@ -33,11 +33,11 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 
 	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
 
-	dynimage.pointRing(width / 2, height / 2, width, ringConstant);
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
 
 	dynimage.recontrast(contrastThreshold, Math.floor(Math.random() * 60));
 
-	dynimage.border(width, height, bred, bgreen, bblue, 10);
+	dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
 	
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {
@@ -45,4 +45,4 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 			});
 }
 
-pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, 0.5 + (0.5*Math.random()), Math.floor(Math.random() * 20), 50 + (Math.random() * 150), Math.random() * 255, Math.random() * 255, Math.random() * 255);
+pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, 0.5 + (0.5*Math.random()), Math.floor(Math.random() * 20), 50 + (Math.random() * 150), Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random(), Math.random() * 20);
