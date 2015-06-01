@@ -129,7 +129,7 @@ DynImage.prototype.character2 = function(width, height) {
 	for(var x = 0; x < width; ++x) {
 		for(var y = 0; y < height; ++y) {
 			var color = this.getColor(x, y);
-			var mod = 150;
+			var mod = 110 + Math.floor(Math.random() * 40);
 			var mult = Math.ceil(Math.random() * 120);
 
 			this.setColor(x, y, 
