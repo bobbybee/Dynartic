@@ -125,6 +125,30 @@ DynImage.prototype.pointRing = function(sx, sy, height, layerIntensity, intensit
 	}		
 }
 
+DynImage.prototype.explosion = function(width, radius, thresh, dk, ck, r, g, b) {
+    for(var i = (width / 2) - (radius); i < (width / 2) + radius; ++i) {
+        for(var j = (width / 2) - (radius); j < (width / 2) + radius; ++j) {
+            if(Math.sqrt( ( ((width / 2) - i) * ((width / 2) - i) ) + ((width / 2) - j) * ((width / 2) - j) ) > radius) break;
+
+            if(Math.random() > thresh) {
+                // explode pixel
+                
+                var theta = Math.random() * Math.PI * 2;
+
+                var newX = i + ( (dk * (width / 2)) * Math.cos(theta));
+                var newY = j + ( (dk * (width / 2)) * Math.sin(theta));
+
+                var color = [r, g, b];
+                this.setColor(newX, newY, color[0] + (Math.random() * ck), color[1] + (Math.random() * ck), color[2] + (Math.random() * ck));
+            } else {
+                var color = [r, g, b];
+
+                this.setColor(i, j, color[0], color[1], color[2]);
+            }
+        }
+    }
+}
+
 DynImage.prototype.character2 = function(width, height) {
 	for(var x = 0; x < width; ++x) {
 		for(var y = 0; y < height; ++y) {
