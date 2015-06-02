@@ -231,5 +231,62 @@ DynImage.prototype.border = function(width, height, bred, bgreen, bblue, mul) {
 	}	
 }
 
+DynImage.prototype.antialias = function(width, height) {
+    var buf = new Buffer(width * height * 4);
+    
+    for(var i = 0; i < width; ++i) {
+        for(var j = 0; j < height; ++j) {
+            var successPixels = 0;
+            var rSum = 0, gSum = 0, bSum = 0, aSum = 0;
+            var that = this;
+
+            function run(x, y) {
+                var color = that.getColor(x, y);
+                rSum += color[0];
+                gSum += color[1];
+                bSum += color[2];
+                aSum += color[3];
+                successPixels++;
+            }
+
+            run(i, j);
+
+            if( (i - 1) >= 0) {
+               run(i - 1, j);
+
+               if( (j - 1) >= 0) {
+                  run(i - 1, j -1);
+               }
+
+               if( (j + 1) < width) {
+                   run(i -1, j + 1);
+               }
+            }
+
+            if( (i + 1) < width) {
+                run(i + 1, j);
+
+                if( (j - 1) >= 0) {
+                    run(i + 1, j - 1);
+                }
+
+                if( (j + 1) < width) {
+                    run(i + 1, j + 1);
+                }
+            }
+
+            if( (j - 1) >= 0) {
+                run(i, j - 1);
+            }
+
+            if( (j + 1) < width) {
+                run(i, j + 1);
+            }
+            
+            this.setColor(i, j, rSum / successPixels, gSum / successPixels, bSum / successPixels, aSum / successPixels);
+        }
+    }        
+}
+
 
 module.exports = DynImage;

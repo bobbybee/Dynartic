@@ -40,7 +40,14 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 	dynimage.recontrast(contrastThreshold, Math.floor(Math.random() * 60));
 
 //	dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
-	
+
+	var png = new Png(buffer, width, height, 'rgba');
+	png.encode(function(image) {
+				fs.writeFile(name+".blurry.png", image);
+			});
+
+    dynimage.antialias(width, height);
+
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {
 				fs.writeFile(name+".png", image);
