@@ -32,26 +32,33 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 	// make a beautiful point ring
 
 	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
-    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+//	dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
+    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
 
 	dynimage.character2(width, height);
     dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
 	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
     dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
 	dynimage.character2(width, height);
 
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
     dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
+    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
     dynimage.recontrast(contrastThreshold, Math.floor(Math.random() * 60));
 
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
     dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-//	dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
-
+	//dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
+/*
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {
 				fs.writeFile(name+".blurry.png", image);
-			});
+			});*/
 
-    dynimage.antialias(width, height);
+  //  dynimage.antialias(width, height);
 
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {
