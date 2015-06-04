@@ -32,38 +32,44 @@ function pretty(name, ired, igreen, iblue, ringConstant, stainConstant, stainSiz
 	// make a beautiful point ring
 
 	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
-    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-//	dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
-    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+	dynimage.character2(width, height);
+	//dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
+
+    dynimage.prettyNoise(width, height, 45);
 
 	dynimage.character2(width, height);
-    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
-    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
-	dynimage.character2(width, height);
+	
+    dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
 
-	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
-    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
-    //dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
     dynimage.recontrast(contrastThreshold, Math.floor(Math.random() * 60));
 
-	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
-    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
-	//dynimage.border(width, height, bred, bgreen, bblue, borderConstant);
-/*
-	var png = new Png(buffer, width, height, 'rgba');
-	png.encode(function(image) {
-				fs.writeFile(name+".blurry.png", image);
-			});*/
+//	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
 
-  //  dynimage.antialias(width, height);
+	dynimage.character2(width, height);
+    dynimage.explosion(width, 50, 0.9, 0.5, 100 + (Math.random() * 100));
+
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
+    
+    dynimage.antialias(width, height);
+
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
+   dynimage.recontrast(contrastThreshold, Math.floor(Math.random() * 60)); 
+    
+	dynimage.pointRing(width / 2, height / 2, width, ringConstant, intensityConstant);
+   
+	dynimage.punchWave(width / 2, height / 2, width * stainSize, height * stainSize, Math.floor(stainConstant), width / 3, waveConstant);
+    var png = new Png(buffer, width, height, 'rgba');
+	png.encode(function(image) {
+				fs.writeFile(name+".png", image);
+			});
+
+  /* dynimage.antialias(width, height);
 
 	var png = new Png(buffer, width, height, 'rgba');
 	png.encode(function(image) {
 				fs.writeFile(name+".png", image);
-			});
+			});*/
 }
 
 pretty("output", Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() * 6, Math.random() * 170, 0.5 + (0.5*Math.random()), Math.floor(Math.random() * 20), 50 + (Math.random() * 150), Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random(), Math.random() * 20);

@@ -150,6 +150,20 @@ DynImage.prototype.explosion = function(width, radius, thresh, dk, ck ) {
     }
 }
 
+DynImage.prototype.prettyNoise = function(width, height, mul) {
+    for(var i = 0; i < width; ++i) {
+        for(var j = 0; j < height; ++j) {
+            var color = this.getColor(i, j);
+
+            this.setColor(i, j,
+                    color[0] + ( (Math.random() - 0.5) * mul),
+                    color[1] + ( (Math.random() - 0.5) * mul),
+                    color[2] + ( (Math.random() - 0.5) * mul)
+            );
+        }
+    }
+}
+
 DynImage.prototype.character2 = function(width, height) {
 	for(var x = 0; x < width; ++x) {
 		for(var y = 0; y < height; ++y) {
